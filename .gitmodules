@@ -1,0 +1,3 @@
+[submodule "GRR"]
+	path = app/src
+	url = https://github.com/JeromeDevome/GRR.git
