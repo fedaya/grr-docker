@@ -1,0 +1,45 @@
+version: '3'
+services:
+    db:
+        image: mariadb/server
+        volumes:
+            - type: volume
+              source: db
+              target: /var/lib/mysql
+            - ./app/src/installation/tables.my.sql:/docker-entrypoint-initdb.d/01-init-data.sql:ro
+        environment:
+            MARIADB_RANDOM_ROOT_PASSWORD: 'true'
+            MARIADB_DATABASE: ${DB_NAME}
+            MARIADB_USER: ${DB_USER}
+            MARIADB_PASSWORD: ${DB_PASSWORD}
+    app:
+        build: ./app
+        links:
+            - db
+        volumes:
+            - type: volume
+              source: app_files
+              target: /var/www/html
+        depends_on:
+            - db
+        environment:
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+    web:
+        build: ./web
+        links:
+            - app
+        volumes:
+            - type: volume
+              source: app_files
+              target: /var/www/html
+              volume:
+                nocopy: true
+        ports:
+            - "9080:80"
+        depends_on:
+            - app
+volumes:
+    db:
+    app_files:

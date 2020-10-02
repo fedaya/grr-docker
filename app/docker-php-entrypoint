@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+env_substr()
+{
+	sed -i -e "s/{DB_NAME}/$DB_NAME/g" /var/www/html/include/connect.inc.php
+	sed -i -e "s/{DB_USER}/$DB_USER/g" /var/www/html/include/connect.inc.php
+	sed -i -e "s/{DB_PASSWORD}/$DB_PASSWORD/g" /var/www/html/include/connect.inc.php
+}
+
+if [ ! -f /initialized ]; then
+	touch /initialized
+	env_substr
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- php-fpm "$@"
+fi
+
+exec "$@"
