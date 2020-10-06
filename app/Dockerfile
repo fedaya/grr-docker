@@ -13,13 +13,12 @@ RUN apk del build-base freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev libx
 
 
 COPY src /var/www/html
-RUN mkdir /var/www/html/personnalisation
 COPY connect.inc.php /var/www/html/include/connect.inc.php
 #COPY config.inc.php /var/www/html/include/config.inc.php
+#COPY config_ldap.inc.php /var/www/html/include/config_ldap.inc.php
 COPY php.ini /usr/local/etc/php/php.ini
 COPY docker-php-entrypoint /usr/local/bin/docker-php-entrypoint
 
 RUN chown -R www-data: /var/www/html/images
-#RUN chown www-data: /var/www/html/include/config_ldap.inc.php
 
 WORKDIR /var/www/html

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
     db:
         image: mariadb/server
@@ -12,6 +12,7 @@ services:
             MARIADB_DATABASE: ${DB_NAME}
             MARIADB_USER: ${DB_USER}
             MARIADB_PASSWORD: ${DB_PASSWORD}
+        restart: unless-stopped
     app:
         build: ./app
         links:
@@ -26,6 +27,7 @@ services:
             DB_NAME: ${DB_NAME}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
+        restart: unless-stopped
     web:
         build: ./web
         links:
@@ -37,9 +39,10 @@ services:
               volume:
                 nocopy: true
         ports:
-            - "9080:80"
+            - "${EXTERNAL_PORT}:80"
         depends_on:
             - app
+        restart: unless-stopped
 volumes:
     db:
     app_files:
