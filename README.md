@@ -11,12 +11,14 @@ Les images de base utilisées sont `php:7.3-fpm-alpine`, `mariadb/server` et `ng
 
 ### Submodule, récupération des sources de Grr
 Commencez par récupérer le submodule:
-```git submodule init
+```
+git submodule init
 git submodule update
 ```
 
 Les sources devraient être réglées sur la version 3.4.1e (dernière version lors de l'écriture de ce fichier). Si ce n'était pas le cas:
-```cd app/src
+```
+cd app/src
 git checkout v3.4.1e
 ```
 
@@ -27,7 +29,8 @@ La personnalisation pour Grr est effectuée dans le dossier `app`.
 Le fichier `connect.inc.php` ne doit pas être modifié.
 
 Vous pouvez personnaliser les fichiers `config.inc.php` et `config_ldap.inc.php` selon vos besoins, puis activer leur copie dans le fichier `Dockerfile` en activant les 2 lignes suivantes:
-```#COPY config.inc.php /var/www/html/include/config.inc.php
+```
+#COPY config.inc.php /var/www/html/include/config.inc.php
 #COPY config_ldap.inc.php /var/www/html/include/config_ldap.inc.php
 ```
 
@@ -38,4 +41,6 @@ Vous pouvez personnaliser les fichiers `config.inc.php` et `config_ldap.inc.php`
 ### Installation
 
 Une fois la personnalisation et les réglages de l'environnement effectués, il ne vous reste plus qu'à lancer la création des images et le lancement des container avec docker-compose:
-`docker-compose up --build --detach`
+```
+docker-compose up --build --detach
+```
