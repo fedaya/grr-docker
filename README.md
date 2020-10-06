@@ -38,5 +38,4 @@ Vous pouvez personnaliser les fichiers `config.inc.php` et `config_ldap.inc.php`
 ### Installation
 
 Une fois la personnalisation et les réglages de l'environnement effectués, il ne vous reste plus qu'à lancer la création des images et le lancement des container avec docker-compose:
-```docker-compose up --build --detach
-```
+`docker-compose up --build --detach`
