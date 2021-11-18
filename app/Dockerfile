@@ -1,6 +1,5 @@
-FROM php:7.3-fpm-alpine
-
-RUN apk add --no-cache build-base freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev libxml2-dev m4 re2c autoconf libpng libjpeg-turbo freetype libzip
+FROM php:7.3-fpm-bullseye
+RUN apt-get update && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev m4 re2c autoconf libpng16-16 libjpeg62-turbo libfreetype6 libzip4 build-essential locales locales-all
 RUN docker-php-ext-configure gd && \
     docker-php-ext-configure mysqli && \
     docker-php-ext-configure pdo_mysql && \
@@ -9,8 +8,8 @@ RUN docker-php-ext-configure gd && \
     docker-php-ext-configure mbstring && \
     docker-php-ext-configure opcache
 RUN docker-php-ext-install gd mysqli pdo_mysql zip xml mbstring opcache
-RUN apk del build-base freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev libxml2-dev m4 re2c autoconf
-
+RUN apt-get purge -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libxml2-dev m4 re2c autoconf build-essential
+RUN apt-get autoremove -y --purge
 
 COPY src /var/www/html
 RUN chown -R www-data: /var/www/html/images

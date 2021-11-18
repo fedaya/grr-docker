@@ -27,6 +27,9 @@ services:
             DB_NAME: ${DB_NAME}
             DB_USER: ${DB_USER}
             DB_PASSWORD: ${DB_PASSWORD}
+            LANG: fr_FR.UTF-8
+            LANGUAGE: fr_FR:en
+            LC_ALL: fr_FR.UTF-8
         restart: unless-stopped
     web:
         build: ./web
